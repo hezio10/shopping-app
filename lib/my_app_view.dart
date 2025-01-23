@@ -5,21 +5,29 @@ import 'package:sportshopping/screens/favorite_screen.dart';
 import 'package:sportshopping/screens/home_page.dart';
 import 'package:sportshopping/screens/my_cart.dart';
 import 'package:provider/provider.dart';
+import 'package:sportshopping/screens/register_stock_screen.dart';
 
 class MyAppView extends StatefulWidget {
   const MyAppView({super.key});
 
   @override
   State<MyAppView> createState() => _MyAppViewState();
+
 }
 
 class _MyAppViewState extends State<MyAppView> {
-  int currentIndex = 0;
+  static int currentIndex = 0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List screens = [
     const HomePage(),
     const FavoriteScreen(),
+    const RegisterStockScreen(),
     const MyCart(),
   ];
+
+  static void updateIndex(int index) {
+    currentIndex = index;
+  }
 
   @override
   Widget build(BuildContext context) => MultiProvider(
@@ -36,12 +44,9 @@ class _MyAppViewState extends State<MyAppView> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MyCart(),
-                  ),
-                );
+                setState(() {
+                  currentIndex = 2;
+                });
               },
               icon: const Icon(Icons.add_shopping_cart),
             ),
@@ -64,8 +69,8 @@ class _MyAppViewState extends State<MyAppView> {
               icon: Icon(Icons.favorite),
             ),
             BottomNavigationBarItem(
-              label: 'Profile',
-              icon: Icon(Icons.add_shopping_cart),
+              label: 'Register stock',
+              icon: Icon(Icons.inventory),
             ),
           ],
         ),

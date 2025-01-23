@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,16 +7,23 @@ import 'package:sportshopping/components/available_size.dart';
 import 'package:sportshopping/providers/cart_provider.dart';
 
 import '../models/product.dart';
+import '../my_app_view.dart';
 import 'my_cart.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatefulWidget {
   final Product product;
 
   const DetailsScreen({super.key, required this.product});
 
   @override
+  _DetailsScreenState createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
+  @override
   Widget build(BuildContext context) {
     final provider = CartProvider.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Details'),
@@ -33,7 +42,10 @@ class DetailsScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: Colors.blue.shade100,
                 ),
-                child: Image.asset(product.image, fit: BoxFit.cover,),
+                child: Image.file(
+                  File(widget.product.image),
+                  fit: BoxFit.cover,
+                ),
               )
             ],
           ),
@@ -43,11 +55,11 @@ class DetailsScreen extends StatelessWidget {
             width: double.infinity,
             height: 400,
             decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40),
-                topRight: Radius.circular(40)
-              )
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40)
+                )
             ),
             child: Column(
               children: [
@@ -55,14 +67,14 @@ class DetailsScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                        product.name.toUpperCase(),
+                      widget.product.name.toUpperCase(),
                       style: const TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      '${product.price}' 'MT',
+                      '${widget.product.price}' 'MT',
                       style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -71,23 +83,23 @@ class DetailsScreen extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  product.description,
+                  widget.product.description,
                   textAlign: TextAlign.justify,
                   style: const TextStyle(
                     fontSize: 14,
                   ),
                 ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Tamanhos disponiveis',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Tamanhos disponiveis',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
                 ),
                 const SizedBox(height: 8.0,),
                 const Row(
@@ -98,18 +110,18 @@ class DetailsScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 8.0,),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Cores disponiveis',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
-            ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Cores disponiveis',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
+                ),
                 const SizedBox(height: 8.0,),
                 const Row(
                   children: [
@@ -130,7 +142,7 @@ class DetailsScreen extends StatelessWidget {
               ],
             ),
           )
-      ],),
+        ],),
       bottomSheet: BottomAppBar(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -138,34 +150,33 @@ class DetailsScreen extends StatelessWidget {
           width: double.infinity,
           height: MediaQuery.of(context).size.height / 10,
           decoration: const BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-            )
+              color: Colors.blue,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              )
           ),
           child: Row(
             children: [
               Text(
-                '${product.price}' 'MT',
+                '${widget.product.price}' 'MT',
                 style: const TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
                 ),
               ),
               const SizedBox(width: 10,),
               ElevatedButton.icon(
-                  onPressed: () {
-                    provider.toggleProduct(product);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const MyCart(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.send),
-                  label: const Text('Add to Cart'),
+                onPressed: () {
+                  provider.toggleProduct(widget.product);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyCart()),
+                  );
+                },
+                icon: const Icon(Icons.send),
+                label: const Text('Add to Cart'),
               )
             ],
           ),

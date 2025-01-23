@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1068703428848",
+    "project_id": "sportshopping-9cac8",
+    "storage_bucket": "sportshopping-9cac8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068703428848:android:1a49fa31e5277c88e51235",
+        "android_client_info": {
+          "package_name": "com.example.sportshopping"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFejg0WBjwVwAeGmo9pqCS-rtOG3KNKGI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

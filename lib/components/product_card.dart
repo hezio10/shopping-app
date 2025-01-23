@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sportshopping/providers/favorite_provider.dart';
@@ -45,8 +47,8 @@ class _ProductCardState extends State<ProductCard> {
             SizedBox(
               height: 130,
               width: 130,
-              child: Image.asset(
-                widget.product.image,
+              child: Image.file(
+                File(widget.product.image),
                 fit: BoxFit.cover,
               ),
             ),

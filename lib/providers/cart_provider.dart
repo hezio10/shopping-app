@@ -79,4 +79,46 @@ class CartProvider extends ChangeNotifier {
   static CartProvider of(BuildContext context, {bool listen = true}) {
     return Provider.of<CartProvider>(context, listen: listen);
   }
+
+  // Future<bool> checkout() async {
+  //   try {
+  //     // Simular salvar a compra no banco de dados.
+  //     final purchaseData = {
+  //       "items": _cart.map((product) => product.toJson()).toList(),
+  //       "total": calculateDiscountedTotal(_cart),
+  //       "timestamp": DateTime.now().toIso8601String(),
+  //     };
+  //     await savePurchaseToDatabase(purchaseData);
+  //
+  //     // Limpar o carrinho.
+  //     _cart.clear();
+  //     notifyListeners();
+  //     return true;
+  //   } catch (e) {
+  //     print("Erro ao processar checkout: $e");
+  //     return false;
+  //   }
+  // }
+
+  // Future<bool> savePurchase({
+  //   required List<Item> items,
+  //   required double total,
+  // }) async {
+  //   try {
+  //
+  //     final purchaseData = {
+  //       'items': items.map((item) => item.toJson()).toList(),
+  //       'total': total,
+  //       'timestamp': DateTime.now().toString(),
+  //     };
+  //
+  //     // Simulação de envio para o banco
+  //     await database.save('purchases', purchaseData);
+  //     return true;
+  //   } catch (e) {
+  //     print("Erro ao salvar compra: $e");
+  //     return false;
+  //   }
+  // }
+
 }
